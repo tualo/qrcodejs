@@ -14,6 +14,15 @@ class JsLoader implements IRoute{
                 BasicRoute::$finished = true;
                 http_response_code(200);
             }            
+        },['get'],false);      
+          
+        BasicRoute::add('/jsqrcodejs-lib/(?P<file>[\w.\/\-]+).js',function($matches){
+            App::contenttype('application/javascript');
+            if (file_exists(dirname(__DIR__,1).'/lib/'.$matches['file'].'.js')){
+                App::etagFile( dirname(__DIR__,1).'/lib/'.$matches['file'].'.js', true);
+                BasicRoute::$finished = true;
+                http_response_code(200);
+            }            
         },['get'],false);
 
 
