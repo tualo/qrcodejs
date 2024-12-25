@@ -14,6 +14,7 @@ Ext.define('Tualo.QRCodeJS.form.field.Display', {
   
     setValue: function(v) {
         console.log('QR',v)
+        if (!Ext.isEmpty(v))
       this.loadFile(v);
     },
     getValue: function() {
@@ -23,6 +24,7 @@ Ext.define('Tualo.QRCodeJS.form.field.Display', {
     loadFile: function(data) {
         let me = this;
         console.log('QR',data,me.id+'-inputEl-image')
+
 
         if (typeof me.qrcode=='object'){
             me.qrcode.clear();
