@@ -1,30 +1,42 @@
 <?php
+
 namespace Tualo\Office\QRCodeJS\Routes;
 
 use Tualo\Office\Basic\TualoApplication as App;
+use Tualo\Office\Basic\RouteSecurityHelper;
 use Tualo\Office\Basic\Route as BasicRoute;
 use Tualo\Office\Basic\IRoute;
 
-class JsLoader implements IRoute{
-    public static function register(){
-        BasicRoute::add('/jsqrcodejs/(?P<file>[\w.\/\-]+).js',function($matches){
-            App::contenttype('application/javascript');
-            if (file_exists(dirname(__DIR__,1).'/js/lazy/'.$matches['file'].'.js')){
-                App::etagFile( dirname(__DIR__,1).'/js/lazy/'.$matches['file'].'.js', true);
-                BasicRoute::$finished = true;
-                http_response_code(200);
-            }            
-        },['get'],false);      
-          
-        BasicRoute::add('/jsqrcodejs-lib/(?P<file>[\w.\/\-]+).js',function($matches){
-            App::contenttype('application/javascript');
-            if (file_exists(dirname(__DIR__,1).'/lib/'.$matches['file'].'.js')){
-                App::etagFile( dirname(__DIR__,1).'/lib/'.$matches['file'].'.js', true);
-                BasicRoute::$finished = true;
-                http_response_code(200);
-            }            
-        },['get'],false);
+class JsLoader implements IRoute
+{
+    public static function register()
+    {
 
 
+        BasicRoute::add('/jsqrcodejs/(?P<file>[\w.\/\-]+).js', function ($matches) {
+
+            RouteSecurityHelper::serveSecureStaticFile(
+                $matches['file'] . '.js',
+                dirname(__DIR__, 1) . DIRECTORY_SEPARATOR . 'js' . DIRECTORY_SEPARATOR . 'lazy',
+                ['js'],
+                [
+                    'application/javascript',
+
+                ]
+            );
+        }, ['get'], true);
+
+        BasicRoute::add('/jsqrcodejs-lib/(?P<file>[\w.\/\-]+).js', function ($matches) {
+
+            RouteSecurityHelper::serveSecureStaticFile(
+                $matches['file'] . '.js',
+                dirname(__DIR__, 1) . DIRECTORY_SEPARATOR . 'lib',
+                ['js'],
+                [
+                    'application/javascript',
+
+                ]
+            );
+        }, ['get'], true);
     }
 }
