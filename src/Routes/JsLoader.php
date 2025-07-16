@@ -24,7 +24,7 @@ class JsLoader implements IRoute
 
                 ]
             );
-        }, ['get'], true);
+        }, ['get'], false);
 
         BasicRoute::add('/jsqrcodejs-lib/(?P<file>[\w.\/\-]+).js', function ($matches) {
 
@@ -37,6 +37,6 @@ class JsLoader implements IRoute
 
                 ]
             );
-        }, ['get'], true);
+        }, ['get'], false);
     }
 }
