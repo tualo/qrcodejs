@@ -20,7 +20,7 @@ class JsLoader implements IRoute
                 dirname(__DIR__, 1) . DIRECTORY_SEPARATOR . 'js' . DIRECTORY_SEPARATOR . 'lazy',
                 ['js'],
                 [
-                    'application/javascript',
+                    'js' => 'application/javascript',
 
                 ]
             );
@@ -33,7 +33,7 @@ class JsLoader implements IRoute
                 dirname(__DIR__, 1) . DIRECTORY_SEPARATOR . 'lib',
                 ['js'],
                 [
-                    'application/javascript',
+                    'js' => 'application/javascript',
 
                 ]
             );
